@@ -24,8 +24,8 @@ jobs:
       with:
         php-version: '8.0' # Specify the PHP version you need
 
-    - name: Install dependencies
-      run: composer install
+    # - name: Install dependencies
+    #   run: composer install
 
     - name: Build Docker Image
       uses: mr-smithers-excellent/docker-build-push@v4
