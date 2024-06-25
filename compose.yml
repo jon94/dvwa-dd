@@ -9,9 +9,7 @@ networks:
 services:
   dvwa:
     build: .
-    image: ghcr.io/digininja/dvwa:latest
-    # Change `always` to `build` to build from local source
-    pull_policy: always
+    pull_policy: build
     environment:
       - DB_SERVER=db
     depends_on:
@@ -19,7 +17,7 @@ services:
     networks:
       - dvwa
     ports:
-      - 127.0.0.1:4280:80
+      - "4280:80"
     restart: unless-stopped
 
   db:
