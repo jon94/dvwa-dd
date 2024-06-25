@@ -1,8 +1,14 @@
 https://techbeatz.co.uk/cyber-security/dvwa-task-1-brute-force-using-hydra-developer-tools/
 
+```
+git clone https://github.com/jon94/dvwa-dd.git
+```
+
 Replace DD API KEY
 
+```
 docker compose up -d --force-recreate --no-deps --build
+```
 
 Login to wherever it is hosted in kodekloud to obtain the URL as well as the PHP SessID. These are needed for the bruteforce.
 
