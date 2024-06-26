@@ -32,3 +32,22 @@ services:
     networks:
       - dvwa
     restart: unless-stopped
+
+  datadog-agent:
+    image: datadog/agent:latest
+    environment:
+      DD_APM_NON_LOCAL_TRAFFIC: true
+      DD_TRACE_DEBUG: true
+      DD_API_KEY: <redacted>
+      DD_TRACE_STARTUP_LOGS: true
+      DD_APM_ENABLED: true
+      DD_DOGSTATSD_NON_LOCAL_TRAFFIC: true
+      DD_PROCESS_CONFIG_PROCESS_COLLECTION_ENABLED: true
+    ports:
+      - "8126:8126"
+      - "8125:8125/udp"
+    volumes:
+     - /etc/passwd:/etc/passwd:ro
+     - /var/run/docker.sock:/var/run/docker.sock
+     - /proc/:/host/proc/:ro
+     - /sys/fs/cgroup:/host/sys/fs/cgroup:ro    
