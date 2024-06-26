@@ -39,6 +39,7 @@ RUN echo '<VirtualHost *:80>\n\
     SetEnv DD_APPSEC_ENABLED ${DD_APPSEC_ENABLED}\n\
     SetEnv DD_SERVICE ${DD_SERVICE}\n\
     SetEnv DD_VERSION ${DD_VERSION}\n\
+    SetEnv DD_APPSEC_AUTOMATED_USER_EVENTS_TRACKING ${DD_APPSEC_AUTOMATED_USER_EVENTS_TRACKING}\n\
     ErrorLog ${APACHE_LOG_DIR}/error.log\n\
     CustomLog ${APACHE_LOG_DIR}/access.log combined\n\
 </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
