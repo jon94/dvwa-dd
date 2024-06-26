@@ -6,6 +6,11 @@ LABEL org.opencontainers.image.licenses="gpl-3.0"
 
 WORKDIR /var/www/html
 
+# Set environment variables for Datadog APM
+ENV DD_ENV=bruteforce
+ENV DD_SERVICE=dvwa
+ENV DD_VERSION=1
+
 # https://www.php.net/manual/en/image.installation.php
 RUN apt-get update \
  && export DEBIAN_FRONTEND=noninteractive \
@@ -17,3 +22,25 @@ RUN apt-get update \
 
 COPY --chown=www-data:www-data . .
 COPY --chown=www-data:www-data config/config.inc.php.dist config/config.inc.php
+
+# Install Datadog tracer and activate
+RUN curl -LO https://github.com/DataDog/dd-trace-php/releases/latest/download/datadog-setup.php \
+ && php datadog-setup.php --php-bin=all
+
+# Set up Apache configuration to use environment variables
+RUN echo '<VirtualHost *:80>\n\
+    DocumentRoot /var/www/html\n\
+    <Directory /var/www/html>\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+    SetEnv DD_AGENT_HOST ${DD_AGENT_HOST}\n\
+    SetEnv DD_ENV ${DD_ENV}\n\
+    SetEnv DD_SERVICE ${DD_SERVICE}\n\
+    SetEnv DD_VERSION ${DD_VERSION}\n\
+    ErrorLog ${APACHE_LOG_DIR}/error.log\n\
+    CustomLog ${APACHE_LOG_DIR}/access.log combined\n\
+</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
+# Ensure Apache runs in the foreground
+CMD ["apache2-foreground"]
