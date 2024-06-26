@@ -8,7 +8,8 @@ services:
     environment:
       - DB_SERVER=db
       - DD_AGENT_HOST=datadog-agent
-      - DD_APPSEC_ENABLED=true 
+      - DD_APPSEC_ENABLED=true
+      - DD_APPSEC_AUTOMATED_USER_EVENTS_TRACKING=extended 
     depends_on:
       - db
     ports:
