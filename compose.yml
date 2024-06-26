@@ -7,6 +7,8 @@ services:
     pull_policy: build
     environment:
       - DB_SERVER=db
+      - DD_AGENT_HOST=datadog-agent
+      - DD_APPSEC_ENABLED=true 
     depends_on:
       - db
     ports:

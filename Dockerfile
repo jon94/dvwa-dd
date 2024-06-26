@@ -25,7 +25,7 @@ COPY --chown=www-data:www-data config/config.inc.php.dist config/config.inc.php
 
 # Install Datadog tracer and activate
 RUN curl -LO https://github.com/DataDog/dd-trace-php/releases/latest/download/datadog-setup.php \
- && php datadog-setup.php --php-bin=all
+ && php datadog-setup.php --php-bin=all --enable-appsec
 
 # Set up Apache configuration to use environment variables
 RUN echo '<VirtualHost *:80>\n\
@@ -36,6 +36,7 @@ RUN echo '<VirtualHost *:80>\n\
     </Directory>\n\
     SetEnv DD_AGENT_HOST ${DD_AGENT_HOST}\n\
     SetEnv DD_ENV ${DD_ENV}\n\
+    SetEnv DD_APPSEC_ENABLED ${DD_APPSEC_ENABLED}\n\
     SetEnv DD_SERVICE ${DD_SERVICE}\n\
     SetEnv DD_VERSION ${DD_VERSION}\n\
     ErrorLog ${APACHE_LOG_DIR}/error.log\n\
